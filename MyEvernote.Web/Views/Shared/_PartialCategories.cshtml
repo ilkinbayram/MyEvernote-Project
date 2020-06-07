@@ -1,0 +1,18 @@
+﻿@using MyEvernote.BussinesLayer.Managers
+@using MyEvernote.Web.Models
+@using MyEvernote.EntitiesLayer
+
+@{
+    List<Category> list = CacheHelper.GetCategoryListFromCache(CacheHelperKeys.constCategoryList);
+}
+
+<h1 class="my-4 text-info">Kateqoriyalar</h1>
+<div class="list-group">
+
+    <a href="/MyEvernoteHome/Index/" title="Butun kateqoriyalar" class="list-group-item text-decoration-none text-info"><i class="fas fa-feather-alt"></i> <b>Hamısı</b> </a>
+
+    @foreach (Category cat in list)
+    {
+        <a href="/MyEvernoteHome/ByCategory/@cat.Id" title="@cat.Description" class="list-group-item text-decoration-none text-info"><i class="fas fa-feather-alt"></i> <b>@cat.CategoryName</b> </a>
+    }
+</div>

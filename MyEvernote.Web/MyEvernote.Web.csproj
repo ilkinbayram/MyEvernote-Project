@@ -1,0 +1,538 @@
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2AF4D888-0F04-4079-91B7-A1C489F36F19}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MyEvernote.Web</RootNamespace>
+    <AssemblyName>MyEvernote.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44363</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>3.7</TypeScriptToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Web.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.7\lib\net45\System.Web.Webpages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Deployment">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.7\lib\net45\System.Web.Webpages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.7\lib\net45\System.Web.Webpages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="aboutImages\demo\548x250.gif" />
+    <Content Include="aboutImages\demo\index.html" />
+    <Content Include="aboutImages\demo\team-member.gif" />
+    <Content Include="ContactFrom_v1\css\main.css" />
+    <Content Include="ContactFrom_v1\css\util.css" />
+    <Content Include="ContactFrom_v1\fonts\font-awesome-4.7.0\css\font-awesome.css" />
+    <Content Include="ContactFrom_v1\fonts\font-awesome-4.7.0\css\font-awesome.min.css" />
+    <Content Include="ContactFrom_v1\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
+    <Content Include="ContactFrom_v1\fonts\font-awesome-4.7.0\HELP-US-OUT.txt" />
+    <Content Include="ContactFrom_v1\fonts\montserrat\OFL.txt" />
+    <Content Include="ContactFrom_v1\images\icons\favicon.ico" />
+    <Content Include="ContactFrom_v1\images\img-01.png" />
+    <Content Include="ContactFrom_v1\js\main.js" />
+    <Content Include="ContactFrom_v1\vendor\tilt\tilt.jquery.min.js" />
+    <Content Include="Content\about-us.css" />
+    <Content Include="Content\framework.css" />
+    <Content Include="LoginDefaultFolder\css\main.css" />
+    <Content Include="LoginDefaultFolder\css\util.css" />
+    <Content Include="LoginDefaultFolder\fonts\font-awesome-4.7.0\css\font-awesome.css" />
+    <Content Include="LoginDefaultFolder\fonts\font-awesome-4.7.0\css\font-awesome.min.css" />
+    <Content Include="LoginDefaultFolder\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
+    <Content Include="LoginDefaultFolder\fonts\font-awesome-4.7.0\HELP-US-OUT.txt" />
+    <Content Include="LoginDefaultFolder\fonts\montserrat\OFL.txt" />
+    <Content Include="LoginDefaultFolder\images\icons\favicon.ico" />
+    <Content Include="LoginDefaultFolder\images\img-01.png" />
+    <Content Include="LoginDefaultFolder\images\my_profile_photo.jpg" />
+    <Content Include="LoginDefaultFolder\js\main.js" />
+    <Content Include="LoginDefaultFolder\vendor\tilt\tilt.jquery.min.js" />
+    <Content Include="Content\bootstrap-grid.css" />
+    <Content Include="Content\bootstrap-grid.min.css" />
+    <Content Include="Content\bootstrap-reboot.css" />
+    <Content Include="Content\bootstrap-reboot.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\SCSS\Style.css">
+      <DependentUpon>Style.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\SCSS\Style.min.css">
+      <DependentUpon>Style.css</DependentUpon>
+    </Content>
+    <Content Include="Content\shop-homepage.css" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Content\SiteCustomCss\styleCustom.css" />
+    <Content Include="Content\SiteCustomCss\styleCustom.min.css">
+      <DependentUpon>styleCustom.css</DependentUpon>
+    </Content>
+    <Content Include="Global.asax" />
+    <Content Include="index.html" />
+    <Content Include="Scripts\bootstrap.bundle.js" />
+    <Content Include="Scripts\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\bootstrap.min.js.map" />
+    <Content Include="Scripts\bootstrap.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.js.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.css.map" />
+    <Content Include="Content\bootstrap-grid.min.css.map" />
+    <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Scripts\esm\popper-utils.js" />
+    <Content Include="Scripts\esm\popper-utils.min.js" />
+    <Content Include="Scripts\esm\popper.js" />
+    <Content Include="Scripts\esm\popper.min.js" />
+    <Content Include="Scripts\index.js.flow" />
+    <Content Include="Scripts\esm\popper.min.js.map" />
+    <Content Include="Scripts\esm\popper.js.map" />
+    <Content Include="Scripts\esm\popper-utils.min.js.map" />
+    <Content Include="Scripts\esm\popper-utils.js.map" />
+    <Content Include="Content\SCSS\Style.scss" />
+    <Content Include="App_Code\BootstrapHelper.cshtml" />
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
+    <Content Include="Content\SCSS\shared\_variables.scss" />
+    <Content Include="Content\SCSS\shared\_classes.scss" />
+    <Content Include="Content\SCSS\Pages\_tags.scss" />
+    <Content Include="LoginDefaultFolder\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
+    <Content Include="LoginDefaultFolder\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.ttf" />
+    <Content Include="LoginDefaultFolder\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.woff" />
+    <Content Include="LoginDefaultFolder\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.woff2" />
+    <Content Include="LoginDefaultFolder\fonts\font-awesome-4.7.0\fonts\FontAwesome.otf" />
+    <Content Include="LoginDefaultFolder\fonts\font-awesome-4.7.0\less\animated.less" />
+    <Content Include="LoginDefaultFolder\fonts\font-awesome-4.7.0\less\bordered-pulled.less" />
+    <Content Include="LoginDefaultFolder\fonts\font-awesome-4.7.0\less\core.less" />
+    <Content Include="LoginDefaultFolder\fonts\font-awesome-4.7.0\less\fixed-width.less" />
+    <Content Include="LoginDefaultFolder\fonts\font-awesome-4.7.0\less\font-awesome.less" />
+    <Content Include="LoginDefaultFolder\fonts\font-awesome-4.7.0\less\icons.less" />
+    <Content Include="LoginDefaultFolder\fonts\font-awesome-4.7.0\less\larger.less" />
+    <Content Include="LoginDefaultFolder\fonts\font-awesome-4.7.0\less\list.less" />
+    <Content Include="LoginDefaultFolder\fonts\font-awesome-4.7.0\less\mixins.less" />
+    <Content Include="LoginDefaultFolder\fonts\font-awesome-4.7.0\less\path.less" />
+    <Content Include="LoginDefaultFolder\fonts\font-awesome-4.7.0\less\rotated-flipped.less" />
+    <Content Include="LoginDefaultFolder\fonts\font-awesome-4.7.0\less\screen-reader.less" />
+    <Content Include="LoginDefaultFolder\fonts\font-awesome-4.7.0\less\stacked.less" />
+    <Content Include="LoginDefaultFolder\fonts\font-awesome-4.7.0\less\variables.less" />
+    <Content Include="LoginDefaultFolder\fonts\font-awesome-4.7.0\scss\font-awesome.scss" />
+    <Content Include="LoginDefaultFolder\fonts\font-awesome-4.7.0\scss\_animated.scss" />
+    <Content Include="LoginDefaultFolder\fonts\font-awesome-4.7.0\scss\_bordered-pulled.scss" />
+    <Content Include="LoginDefaultFolder\fonts\font-awesome-4.7.0\scss\_core.scss" />
+    <Content Include="LoginDefaultFolder\fonts\font-awesome-4.7.0\scss\_fixed-width.scss" />
+    <Content Include="LoginDefaultFolder\fonts\font-awesome-4.7.0\scss\_icons.scss" />
+    <Content Include="LoginDefaultFolder\fonts\font-awesome-4.7.0\scss\_larger.scss" />
+    <Content Include="LoginDefaultFolder\fonts\font-awesome-4.7.0\scss\_list.scss" />
+    <Content Include="LoginDefaultFolder\fonts\font-awesome-4.7.0\scss\_mixins.scss" />
+    <Content Include="LoginDefaultFolder\fonts\font-awesome-4.7.0\scss\_path.scss" />
+    <Content Include="LoginDefaultFolder\fonts\font-awesome-4.7.0\scss\_rotated-flipped.scss" />
+    <Content Include="LoginDefaultFolder\fonts\font-awesome-4.7.0\scss\_screen-reader.scss" />
+    <Content Include="LoginDefaultFolder\fonts\font-awesome-4.7.0\scss\_stacked.scss" />
+    <Content Include="LoginDefaultFolder\fonts\font-awesome-4.7.0\scss\_variables.scss" />
+    <Content Include="LoginDefaultFolder\fonts\montserrat\Montserrat-Black.ttf" />
+    <Content Include="LoginDefaultFolder\fonts\montserrat\Montserrat-BlackItalic.ttf" />
+    <Content Include="LoginDefaultFolder\fonts\montserrat\Montserrat-Bold.ttf" />
+    <Content Include="LoginDefaultFolder\fonts\montserrat\Montserrat-BoldItalic.ttf" />
+    <Content Include="LoginDefaultFolder\fonts\montserrat\Montserrat-ExtraBold.ttf" />
+    <Content Include="LoginDefaultFolder\fonts\montserrat\Montserrat-ExtraBoldItalic.ttf" />
+    <Content Include="LoginDefaultFolder\fonts\montserrat\Montserrat-ExtraLight.ttf" />
+    <Content Include="LoginDefaultFolder\fonts\montserrat\Montserrat-ExtraLightItalic.ttf" />
+    <Content Include="LoginDefaultFolder\fonts\montserrat\Montserrat-Italic.ttf" />
+    <Content Include="LoginDefaultFolder\fonts\montserrat\Montserrat-Light.ttf" />
+    <Content Include="LoginDefaultFolder\fonts\montserrat\Montserrat-LightItalic.ttf" />
+    <Content Include="LoginDefaultFolder\fonts\montserrat\Montserrat-Medium.ttf" />
+    <Content Include="LoginDefaultFolder\fonts\montserrat\Montserrat-MediumItalic.ttf" />
+    <Content Include="LoginDefaultFolder\fonts\montserrat\Montserrat-Regular.ttf" />
+    <Content Include="LoginDefaultFolder\fonts\montserrat\Montserrat-SemiBold.ttf" />
+    <Content Include="LoginDefaultFolder\fonts\montserrat\Montserrat-SemiBoldItalic.ttf" />
+    <Content Include="LoginDefaultFolder\fonts\montserrat\Montserrat-Thin.ttf" />
+    <Content Include="LoginDefaultFolder\fonts\montserrat\Montserrat-ThinItalic.ttf" />
+    <Content Include="LoginDefaultFolder\fonts\poppins\Poppins-Black.ttf" />
+    <Content Include="LoginDefaultFolder\fonts\poppins\Poppins-BlackItalic.ttf" />
+    <Content Include="LoginDefaultFolder\fonts\poppins\Poppins-Bold.ttf" />
+    <Content Include="LoginDefaultFolder\fonts\poppins\Poppins-BoldItalic.ttf" />
+    <Content Include="LoginDefaultFolder\fonts\poppins\Poppins-ExtraBold.ttf" />
+    <Content Include="LoginDefaultFolder\fonts\poppins\Poppins-ExtraBoldItalic.ttf" />
+    <Content Include="LoginDefaultFolder\fonts\poppins\Poppins-ExtraLight.ttf" />
+    <Content Include="LoginDefaultFolder\fonts\poppins\Poppins-ExtraLightItalic.ttf" />
+    <Content Include="LoginDefaultFolder\fonts\poppins\Poppins-Italic.ttf" />
+    <Content Include="LoginDefaultFolder\fonts\poppins\Poppins-Light.ttf" />
+    <Content Include="LoginDefaultFolder\fonts\poppins\Poppins-LightItalic.ttf" />
+    <Content Include="LoginDefaultFolder\fonts\poppins\Poppins-Medium.ttf" />
+    <Content Include="LoginDefaultFolder\fonts\poppins\Poppins-MediumItalic.ttf" />
+    <Content Include="LoginDefaultFolder\fonts\poppins\Poppins-Regular.ttf" />
+    <Content Include="LoginDefaultFolder\fonts\poppins\Poppins-SemiBold.ttf" />
+    <Content Include="LoginDefaultFolder\fonts\poppins\Poppins-SemiBoldItalic.ttf" />
+    <Content Include="LoginDefaultFolder\fonts\poppins\Poppins-Thin.ttf" />
+    <Content Include="LoginDefaultFolder\fonts\poppins\Poppins-ThinItalic.ttf" />
+    <Content Include="ContactFrom_v1\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
+    <Content Include="ContactFrom_v1\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.ttf" />
+    <Content Include="ContactFrom_v1\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.woff" />
+    <Content Include="ContactFrom_v1\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.woff2" />
+    <Content Include="ContactFrom_v1\fonts\font-awesome-4.7.0\fonts\FontAwesome.otf" />
+    <Content Include="ContactFrom_v1\fonts\font-awesome-4.7.0\less\animated.less" />
+    <Content Include="ContactFrom_v1\fonts\font-awesome-4.7.0\less\bordered-pulled.less" />
+    <Content Include="ContactFrom_v1\fonts\font-awesome-4.7.0\less\core.less" />
+    <Content Include="ContactFrom_v1\fonts\font-awesome-4.7.0\less\fixed-width.less" />
+    <Content Include="ContactFrom_v1\fonts\font-awesome-4.7.0\less\font-awesome.less" />
+    <Content Include="ContactFrom_v1\fonts\font-awesome-4.7.0\less\icons.less" />
+    <Content Include="ContactFrom_v1\fonts\font-awesome-4.7.0\less\larger.less" />
+    <Content Include="ContactFrom_v1\fonts\font-awesome-4.7.0\less\list.less" />
+    <Content Include="ContactFrom_v1\fonts\font-awesome-4.7.0\less\mixins.less" />
+    <Content Include="ContactFrom_v1\fonts\font-awesome-4.7.0\less\path.less" />
+    <Content Include="ContactFrom_v1\fonts\font-awesome-4.7.0\less\rotated-flipped.less" />
+    <Content Include="ContactFrom_v1\fonts\font-awesome-4.7.0\less\screen-reader.less" />
+    <Content Include="ContactFrom_v1\fonts\font-awesome-4.7.0\less\stacked.less" />
+    <Content Include="ContactFrom_v1\fonts\font-awesome-4.7.0\less\variables.less" />
+    <Content Include="ContactFrom_v1\fonts\font-awesome-4.7.0\scss\font-awesome.scss" />
+    <Content Include="ContactFrom_v1\fonts\font-awesome-4.7.0\scss\_animated.scss" />
+    <Content Include="ContactFrom_v1\fonts\font-awesome-4.7.0\scss\_bordered-pulled.scss" />
+    <Content Include="ContactFrom_v1\fonts\font-awesome-4.7.0\scss\_core.scss" />
+    <Content Include="ContactFrom_v1\fonts\font-awesome-4.7.0\scss\_fixed-width.scss" />
+    <Content Include="ContactFrom_v1\fonts\font-awesome-4.7.0\scss\_icons.scss" />
+    <Content Include="ContactFrom_v1\fonts\font-awesome-4.7.0\scss\_larger.scss" />
+    <Content Include="ContactFrom_v1\fonts\font-awesome-4.7.0\scss\_list.scss" />
+    <Content Include="ContactFrom_v1\fonts\font-awesome-4.7.0\scss\_mixins.scss" />
+    <Content Include="ContactFrom_v1\fonts\font-awesome-4.7.0\scss\_path.scss" />
+    <Content Include="ContactFrom_v1\fonts\font-awesome-4.7.0\scss\_rotated-flipped.scss" />
+    <Content Include="ContactFrom_v1\fonts\font-awesome-4.7.0\scss\_screen-reader.scss" />
+    <Content Include="ContactFrom_v1\fonts\font-awesome-4.7.0\scss\_stacked.scss" />
+    <Content Include="ContactFrom_v1\fonts\font-awesome-4.7.0\scss\_variables.scss" />
+    <Content Include="ContactFrom_v1\fonts\montserrat\Montserrat-Black.ttf" />
+    <Content Include="ContactFrom_v1\fonts\montserrat\Montserrat-BlackItalic.ttf" />
+    <Content Include="ContactFrom_v1\fonts\montserrat\Montserrat-Bold.ttf" />
+    <Content Include="ContactFrom_v1\fonts\montserrat\Montserrat-BoldItalic.ttf" />
+    <Content Include="ContactFrom_v1\fonts\montserrat\Montserrat-ExtraBold.ttf" />
+    <Content Include="ContactFrom_v1\fonts\montserrat\Montserrat-ExtraBoldItalic.ttf" />
+    <Content Include="ContactFrom_v1\fonts\montserrat\Montserrat-ExtraLight.ttf" />
+    <Content Include="ContactFrom_v1\fonts\montserrat\Montserrat-ExtraLightItalic.ttf" />
+    <Content Include="ContactFrom_v1\fonts\montserrat\Montserrat-Italic.ttf" />
+    <Content Include="ContactFrom_v1\fonts\montserrat\Montserrat-Light.ttf" />
+    <Content Include="ContactFrom_v1\fonts\montserrat\Montserrat-LightItalic.ttf" />
+    <Content Include="ContactFrom_v1\fonts\montserrat\Montserrat-Medium.ttf" />
+    <Content Include="ContactFrom_v1\fonts\montserrat\Montserrat-MediumItalic.ttf" />
+    <Content Include="ContactFrom_v1\fonts\montserrat\Montserrat-Regular.ttf" />
+    <Content Include="ContactFrom_v1\fonts\montserrat\Montserrat-SemiBold.ttf" />
+    <Content Include="ContactFrom_v1\fonts\montserrat\Montserrat-SemiBoldItalic.ttf" />
+    <Content Include="ContactFrom_v1\fonts\montserrat\Montserrat-Thin.ttf" />
+    <Content Include="ContactFrom_v1\fonts\montserrat\Montserrat-ThinItalic.ttf" />
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\popper-utils.js" />
+    <Content Include="Scripts\popper-utils.min.js" />
+    <Content Include="Scripts\popper.js" />
+    <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\src\index.js" />
+    <Content Include="Scripts\src\methods\defaults.js" />
+    <Content Include="Scripts\src\methods\destroy.js" />
+    <Content Include="Scripts\src\methods\disableEventListeners.js" />
+    <Content Include="Scripts\src\methods\enableEventListeners.js" />
+    <Content Include="Scripts\src\methods\placements.js" />
+    <Content Include="Scripts\src\methods\update.js" />
+    <Content Include="Scripts\src\modifiers\applyStyle.js" />
+    <Content Include="Scripts\src\modifiers\arrow.js" />
+    <Content Include="Scripts\src\modifiers\computeStyle.js" />
+    <Content Include="Scripts\src\modifiers\flip.js" />
+    <Content Include="Scripts\src\modifiers\hide.js" />
+    <Content Include="Scripts\src\modifiers\index.js" />
+    <Content Include="Scripts\src\modifiers\inner.js" />
+    <Content Include="Scripts\src\modifiers\keepTogether.js" />
+    <Content Include="Scripts\src\modifiers\offset.js" />
+    <Content Include="Scripts\src\modifiers\preventOverflow.js" />
+    <Content Include="Scripts\src\modifiers\shift.js" />
+    <Content Include="Scripts\src\utils\clockwise.js" />
+    <Content Include="Scripts\src\utils\computeAutoPlacement.js" />
+    <Content Include="Scripts\src\utils\debounce.js" />
+    <Content Include="Scripts\src\utils\find.js" />
+    <Content Include="Scripts\src\utils\findCommonOffsetParent.js" />
+    <Content Include="Scripts\src\utils\findIndex.js" />
+    <Content Include="Scripts\src\utils\getBordersSize.js" />
+    <Content Include="Scripts\src\utils\getBoundaries.js" />
+    <Content Include="Scripts\src\utils\getBoundingClientRect.js" />
+    <Content Include="Scripts\src\utils\getClientRect.js" />
+    <Content Include="Scripts\src\utils\getFixedPositionOffsetParent.js" />
+    <Content Include="Scripts\src\utils\getOffsetParent.js" />
+    <Content Include="Scripts\src\utils\getOffsetRect.js" />
+    <Content Include="Scripts\src\utils\getOffsetRectRelativeToArbitraryNode.js" />
+    <Content Include="Scripts\src\utils\getOppositePlacement.js" />
+    <Content Include="Scripts\src\utils\getOppositeVariation.js" />
+    <Content Include="Scripts\src\utils\getOuterSizes.js" />
+    <Content Include="Scripts\src\utils\getParentNode.js" />
+    <Content Include="Scripts\src\utils\getPopperOffsets.js" />
+    <Content Include="Scripts\src\utils\getReferenceNode.js" />
+    <Content Include="Scripts\src\utils\getReferenceOffsets.js" />
+    <Content Include="Scripts\src\utils\getRoot.js" />
+    <Content Include="Scripts\src\utils\getRoundedOffsets.js" />
+    <Content Include="Scripts\src\utils\getScroll.js" />
+    <Content Include="Scripts\src\utils\getScrollParent.js" />
+    <Content Include="Scripts\src\utils\getStyleComputedProperty.js" />
+    <Content Include="Scripts\src\utils\getSupportedPropertyName.js" />
+    <Content Include="Scripts\src\utils\getViewportOffsetRectRelativeToArtbitraryNode.js" />
+    <Content Include="Scripts\src\utils\getWindow.js" />
+    <Content Include="Scripts\src\utils\getWindowSizes.js" />
+    <Content Include="Scripts\src\utils\includeScroll.js" />
+    <Content Include="Scripts\src\utils\index.js" />
+    <Content Include="Scripts\src\utils\isBrowser.js" />
+    <Content Include="Scripts\src\utils\isFixed.js" />
+    <Content Include="Scripts\src\utils\isFunction.js" />
+    <Content Include="Scripts\src\utils\isIE.js" />
+    <Content Include="Scripts\src\utils\isModifierEnabled.js" />
+    <Content Include="Scripts\src\utils\isModifierRequired.js" />
+    <Content Include="Scripts\src\utils\isNumeric.js" />
+    <Content Include="Scripts\src\utils\isOffsetContainer.js" />
+    <Content Include="Scripts\src\utils\removeEventListeners.js" />
+    <Content Include="Scripts\src\utils\runModifiers.js" />
+    <Content Include="Scripts\src\utils\setAttributes.js" />
+    <Content Include="Scripts\src\utils\setStyles.js" />
+    <Content Include="Scripts\src\utils\setupEventListeners.js" />
+    <Content Include="Scripts\umd\popper-utils.js" />
+    <Content Include="Scripts\umd\popper-utils.min.js" />
+    <Content Include="Scripts\umd\popper.js" />
+    <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\CommentController.cs" />
+    <Compile Include="Controllers\LikeController.cs" />
+    <Compile Include="Controllers\MyEvernoteHomeController.cs" />
+    <Compile Include="Controllers\NoteController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Filters\AuthCheckAdmin.cs" />
+    <Compile Include="Filters\AuthIsLoggedOut.cs" />
+    <Compile Include="Filters\AuthIsSignedIn.cs" />
+    <Compile Include="Filters\OwnExc.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Init\MyWebApp.cs" />
+    <Compile Include="Models\CacheHelper.cs" />
+    <Compile Include="Models\CurrentCookieTester.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\ColorNotify.cs" />
+    <Compile Include="ViewModels\ErrorViewModel.cs" />
+    <Compile Include="ViewModels\InfoViewModel.cs" />
+    <Compile Include="ViewModels\NotifyModelBase.cs" />
+    <Compile Include="ViewModels\OkViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelEach.cs" />
+    <Compile Include="ViewModels\WarningViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\web.config" />
+    <None Include="packages.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\MyEvernoteHome\Index.cshtml" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
+    <Content Include="Scripts\umd\popper.min.js.map" />
+    <Content Include="Scripts\umd\popper.js.map" />
+    <Content Include="Scripts\umd\popper.js.flow" />
+    <Content Include="Scripts\umd\popper-utils.min.js.map" />
+    <Content Include="Scripts\umd\popper-utils.js.map" />
+    <Content Include="Scripts\README.md" />
+    <Content Include="Scripts\popper.min.js.map" />
+    <Content Include="Scripts\popper.js.map" />
+    <Content Include="Scripts\popper-utils.min.js.map" />
+    <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Shared\_PartialCategories.cshtml" />
+    <Content Include="Views\MyEvernoteHome\Login.cshtml" />
+    <Content Include="Views\MyEvernoteHome\CreateAccount.cshtml" />
+    <Content Include="Views\User\ShowProfile.cshtml" />
+    <Content Include="Views\Shared\Ok.cshtml" />
+    <Content Include="Views\Shared\Info.cshtml" />
+    <Content Include="Views\Shared\Warning.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\User\EditProfile.cshtml" />
+    <Content Include="Views\User\DeleteProfile.cshtml" />
+    <Content Include="Views\Shared\_PartialFooter.cshtml" />
+    <Content Include="Views\Category\Create.cshtml" />
+    <Content Include="Views\Category\Delete.cshtml" />
+    <Content Include="Views\Category\Details.cshtml" />
+    <Content Include="Views\Category\Edit.cshtml" />
+    <Content Include="Views\Category\Index.cshtml" />
+    <Content Include="Views\User\UserList.cshtml" />
+    <Content Include="Views\User\CreateUser.cshtml" />
+    <Content Include="Views\User\UserEdit.cshtml" />
+    <Content Include="Views\User\UserDelete.cshtml" />
+    <Content Include="Views\User\UserDetails.cshtml" />
+    <Content Include="Views\Note\Create.cshtml" />
+    <Content Include="Views\Note\Delete.cshtml" />
+    <Content Include="Views\Note\Details.cshtml" />
+    <Content Include="Views\Note\Edit.cshtml" />
+    <Content Include="Views\Note\Index.cshtml" />
+    <Content Include="Views\Shared\_PartialPageComments.cshtml" />
+    <Content Include="Views\MyEvernoteHome\ForgotPassword.cshtml" />
+    <Content Include="Views\MyEvernoteHome\ChangePassword.cshtml" />
+    <Content Include="Views\MyEvernoteHome\About.cshtml" />
+    <Content Include="Views\MyEvernoteHome\Contact.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Data\" />
+    <Folder Include="Images\UserImages\" />
+    <Folder Include="PageStaticImages\" />
+    <Folder Include="Views\Comment\" />
+    <Folder Include="Views\Like\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommonLayer\MyEvernote.CommonLayer.csproj">
+      <Project>{ba01c9fa-d957-4ea5-b869-4ec7e64891a6}</Project>
+      <Name>MyEvernote.CommonLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyEvernote.BussinesLayer\MyEvernote.BussinesLayer.csproj">
+      <Project>{b5d5e7f3-6d56-448b-8ce2-f77eb30dceda}</Project>
+      <Name>MyEvernote.BussinesLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyEvernote.EntitiesLayer\MyEvernote.EntitiesLayer.csproj">
+      <Project>{92b48d62-97fb-4c0f-a03e-3ca075e85dd8}</Project>
+      <Name>MyEvernote.EntitiesLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyEvernoteCore\MyEvernote.Core.csproj">
+      <Project>{5f579189-d98e-41b4-8064-af03fa9adfd6}</Project>
+      <Name>MyEvernote.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>34203</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44363/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

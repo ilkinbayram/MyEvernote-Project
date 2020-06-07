@@ -1,0 +1,6 @@
+C:\Users\Developer\source\repos\MyEvernote\CommonLayer\bin\Debug\CommonLayer.dll
+C:\Users\Developer\source\repos\MyEvernote\CommonLayer\bin\Debug\CommonLayer.pdb
+C:\Users\Developer\source\repos\MyEvernote\CommonLayer\obj\Debug\MyEvernote.CommonLayer.csproj.CoreCompileInputs.cache
+C:\Users\Developer\source\repos\MyEvernote\CommonLayer\obj\Debug\CommonLayer.dll
+C:\Users\Developer\source\repos\MyEvernote\CommonLayer\obj\Debug\CommonLayer.pdb
+C:\Users\Developer\source\repos\MyEvernote\CommonLayer\obj\Debug\MyEvernote.CommonLayer.csprojAssemblyReference.cache

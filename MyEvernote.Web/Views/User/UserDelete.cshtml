@@ -1,0 +1,101 @@
+﻿@model MyEvernote.EntitiesLayer.User
+
+@{
+    ViewBag.Title = "UserDelete";
+}
+
+
+    <div class="col-12">
+        <h2 class="mt-4">UserDelete</h2>
+
+        <h3>Are you sure you want to delete this?</h3>
+        <div>
+            <h4>User</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Surname)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Surname)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Username)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Username)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Password)
+                </dt>
+
+                <dd>
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @Value = "ThugLifePasswordForYou", type = "password", @readonly = "true" } })
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Email)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Email)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Gender)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Gender)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.IsBanned)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.IsBanned)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.IsConfirmed)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.IsConfirmed)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.IsAdmin)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.IsAdmin)
+                </dd>
+
+            </dl>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Sil" class="btn btn-outline-danger" /> |
+                    <a href="/User/UserList" class="btn btn-outline-dark">Geri Don</a>
+                </div>
+            }
+        </div>
+    </div>
+

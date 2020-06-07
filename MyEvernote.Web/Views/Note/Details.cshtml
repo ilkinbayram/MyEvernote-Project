@@ -1,0 +1,71 @@
+﻿@model MyEvernote.EntitiesLayer.Note
+
+@{
+    ViewBag.Title = "Details";
+}
+
+    <div class="col-12">
+        <div class="col-12">
+            <h4 class="mt-3">Post Haqqinda Etrafli</h4>
+            <hr />
+
+            <div>
+                @if (Model.ImageCap == null)
+                {
+                    <img src="~/Images/UserImages/noteDefault.png" class="rounded" style="border-radius: 8px; width: 300px; height: 190px;" alt="Foto Movcud Deyil" />
+                }
+                else
+                {
+                    <img src="/Images/NoteImages/@Model.ImageCap" class="rounded" style="border-radius: 8px; width: 300px; height: 190px;" alt="Foto Movcud Deyil" />
+                }
+            </div>
+
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.NoteTitle)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.NoteTitle)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Text)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Text)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.IsDraft)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.IsDraft)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.LikeCount)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.LikeCount)
+                </dd>
+
+                <dt>
+                    Post Kommentarileri
+                </dt>
+
+                <dd>
+                    @Model.Comments.Count
+                </dd>
+
+            </dl>
+
+        </div>
+        <div class="col-12">
+            @Html.ActionLink("Duzelis Et", "Edit", new { id = Model.Id }, new { @class="btn btn-outline-primary"}) |
+            @Html.ActionLink("Geri Don", "Index",null, new { @class = "btn btn-outline-dark" })
+        </div>
+    </div>

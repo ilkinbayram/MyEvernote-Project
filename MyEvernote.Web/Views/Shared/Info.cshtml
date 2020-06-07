@@ -1,0 +1,54 @@
+﻿@model MyEvernote.Web.ViewModels.InfoViewModel
+
+
+@{
+    ViewBag.Title = Model.Title;
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 text-center mt-4">
+            <div>
+                <div style="background-color: @Model.ColorOfNotifyBack" class="jumbotron">
+                    <h1 class="display-4">Hormetli <strong> @(ViewBag.userName != null ? ViewBag.userName : "Istifadeci") </strong>!</h1>
+                    <div class="lead">
+                        <ul class="list-group">
+                            @foreach (string detail in Model.Details)
+                            {
+                                <li class="list-group-item">
+                                    <i class="fas fa-info"></i> @detail
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <hr class="my-4">
+                    <p>@Model.Todo</p>
+                    <hr />
+                    @if (Model.IsRedirecting)
+                    {
+                        <div class="alert alert-@Model.AlertColor" role="alert">@Model.RedirectingInfo <span class="loadingMainPageSeconds">@Model.RedirectSeconds.ToString()</span></div>
+                    }
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+    @{
+        string js = string.Empty;
+
+        if (Model.IsRedirecting)
+        {
+            js = "let a ="+ ((Model.RedirectSeconds-1)).ToString() + "; let myInterval = setInterval(function () { $('.loadingMainPageSeconds').html(a); if (a != 0) { a--; } }, 1000); function stopInter() { clearInterval(myInterval); } setTimeout(function () { stopInter(); window.location = '"+ Model.RedirectUrl + "'; },"+ (Model.RedirectSeconds*1000).ToString() + ");";
+        }
+    }
+
+    $(function () {
+        @Html.Raw(js)
+    });
+</script>

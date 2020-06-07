@@ -1,0 +1,93 @@
+﻿@model MyEvernote.EntitiesLayer.User
+
+@{
+    ViewBag.Title = "UserDetails";
+}
+
+    <div class="col-12">
+        <div class="mt-4">
+            <h4>Istifadeci @Model.Username</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Surname)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Surname)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Username)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Username)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Password)
+                </dt>
+
+                <dd>
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control",@Value="ThugLifePasswordForYou", type = "password", @readonly = "true" } })
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Email)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Email)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Gender)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Gender)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.IsBanned)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.IsBanned)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.IsConfirmed)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.IsConfirmed)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.IsAdmin)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.IsAdmin)
+                </dd>
+
+            </dl>
+        </div>
+        <p>
+            @Html.ActionLink("Duzelis Et", "UserEdit", new { id = Model.Id }, new { @class="btn btn-outline-primary"}) |
+            @Html.ActionLink("Geri Don", "UserList", null, new { @class = "btn btn-outline-dark" })
+        </p>
+    </div>
+
+
+

@@ -1,0 +1,90 @@
+﻿@model IEnumerable<MyEvernote.EntitiesLayer.Category>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+@if (ViewBag.Success != null)
+{
+    <div class="justMomentAlert">
+        <br />
+        <div class="alert alert-success" role="alert">
+            @ViewBag.Success
+        </div>
+        <br />
+    </div>
+    
+}
+
+<div class="col-12">
+    <a class="btn btn-primary mt-2 mb-2" href="/Category/Create">
+        <i class="fas fa-plus"></i> Yeni Kategoriya
+    </a>
+</div>
+<br />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedOn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ModifiedOn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ModifiedUsername)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModifiedOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModifiedUsername)
+            </td>
+            <td>
+                <a class="btn btn-success" href="/Category/Edit/@item.Id">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a class="btn btn-info" href="/Category/Details/@item.Id">
+                    <i class="fas fa-info-circle"></i>
+                </a>
+                <a class="btn btn-danger" href="/Category/Delete/@item.Id">
+                    <i class="fas fa-trash"></i>
+                </a>
+
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+<script>
+    $(function () {
+        if ($(".justMomentAlert") !== undefined) {
+            setInterval(function () {
+                $(".justMomentAlert").hide(300);
+            }, 3000);
+        }
+    });
+</script>

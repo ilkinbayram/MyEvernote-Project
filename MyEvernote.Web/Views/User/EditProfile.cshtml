@@ -1,0 +1,135 @@
+﻿@using MyEvernote.EntitiesLayer
+@using MyEvernote.BussinesLayer.Managers
+@using MyEvernote.BussinesLayer
+@using MyEvernote.Web.Models
+@model MyEvernote.EntitiesLayer.User
+
+@{
+    ViewBag.Title = "EditProfile";
+}
+
+@{
+    UserManager usm = new UserManager();
+    User user = null;
+    if (CurrentCookieTester.CookieIsExist(CookieKeys.signedUserToken))
+    {
+        user = usm.GetUserForCookie(CurrentCookieTester.GetCurrentToken(CookieKeys.signedUserToken));
+    }
+}
+<div class="col-12">
+    @if (ViewBag.AlertResult != null)
+    {
+        <div class="alert alert-success" id="alertShow">
+            @foreach (BussinessError bussinessError in ViewBag.AlertResult)
+            {
+                <ul>
+                    <li>
+                        @bussinessError.Detail
+                    </li>
+                </ul>
+            }
+        </div>
+    }
+</div>
+<div class="col-12 mt-4">
+    @using (Html.BeginForm("EditProfile", "User", FormMethod.Post, new { @class = "col-12", enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <input type="number" style="display: none;" id="CurrentId" name="CurrentId" value="@(user!=null?user.Id:-1)" />
+        <h4 class="mt-4">Istifadeci</h4>
+        <hr />
+        <div class="form-horizontal">
+            <div class="col-3 text-center mt-4 mb-4">
+                <hr />
+                <div>
+                    <img class="rounded-circle" style="width: 100%; height: 100%;" src="/Images/UserImages/@(user!=null?user.ImageRoad:"https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80")" alt="Resim Yuklenmedi" />
+                </div>
+
+                <hr />
+                <br />
+                <div class="col-12">
+                    <i>Profil Seklini Deyis</i>
+                    <div class="form-group">
+                        <input type="file" class="form-control-file" name="profileImage" id="profileImage" value="" />
+                    </div>
+                    <i class="fas fa-info-circle"></i> <small><i>Lufen sadece <b>jpg, jpeg,</b> ve ya <b>png</b> formatinda dosya daxil edin...</i></small>
+                </div>
+
+            </div>
+            <div class="col-1">
+
+            </div>
+            <div class="col-8">
+
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @Value = (user == null ? "" : user.Name) } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Surname, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Surname, new { htmlAttributes = new { @class = "form-control", @Value = (user == null ? "" : user.Surname) } })
+                        @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control", @Value = (user == null ? "" : user.Username) } })
+                        @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @Value = (user == null ? "" : user.Email), @readonly = true } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", type = "password", @Value = (user == null ? "" : user.Password), @readonly = true } })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Gonder" class="btn btn-outline-success" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    }
+</div>
+
+
+<script>
+    $(function () {
+        if ($(".validation-summary-errors") !== undefined) {
+            setTimeout(function () {
+                $(".validation-summary-errors").hide(300);
+            }, 5000);
+        }
+        if ($("#alertShow") != undefined) {
+            setTimeout(function () {
+                $("#alertShow").hide(300);
+            }, 3000);
+        }
+    });
+</script>

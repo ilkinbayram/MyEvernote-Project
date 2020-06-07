@@ -1,0 +1,12 @@
+C:\Users\Developer\source\repos\MyEvernote\MyEvernote.EntitiesLayer\bin\Debug\MyEvernote.EntitiesLayer.dll.config
+C:\Users\Developer\source\repos\MyEvernote\MyEvernote.EntitiesLayer\bin\Debug\MyEvernote.EntitiesLayer.dll
+C:\Users\Developer\source\repos\MyEvernote\MyEvernote.EntitiesLayer\bin\Debug\MyEvernote.EntitiesLayer.pdb
+C:\Users\Developer\source\repos\MyEvernote\MyEvernote.EntitiesLayer\bin\Debug\EntityFramework.dll
+C:\Users\Developer\source\repos\MyEvernote\MyEvernote.EntitiesLayer\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Developer\source\repos\MyEvernote\MyEvernote.EntitiesLayer\bin\Debug\EntityFramework.xml
+C:\Users\Developer\source\repos\MyEvernote\MyEvernote.EntitiesLayer\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Developer\source\repos\MyEvernote\MyEvernote.EntitiesLayer\obj\Debug\MyEvernote.EntitiesLayer.csproj.CopyComplete
+C:\Users\Developer\source\repos\MyEvernote\MyEvernote.EntitiesLayer\obj\Debug\MyEvernote.EntitiesLayer.dll
+C:\Users\Developer\source\repos\MyEvernote\MyEvernote.EntitiesLayer\obj\Debug\MyEvernote.EntitiesLayer.pdb
+C:\Users\Developer\source\repos\MyEvernote\MyEvernote.EntitiesLayer\obj\Debug\MyEvernote.EntitiesLayer.csproj.CoreCompileInputs.cache
+C:\Users\Developer\source\repos\MyEvernote\MyEvernote.EntitiesLayer\obj\Debug\MyEvernote.EntitiesLayer.csprojAssemblyReference.cache

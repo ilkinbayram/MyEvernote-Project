@@ -1,0 +1,143 @@
+﻿@using MyEvernote.EntitiesLayer;
+@using MyEvernote.BussinesLayer.Managers;
+@using MyEvernote.Web.Models
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>@ViewBag.Title</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Custom styles for this template -->
+    <link href="~/Content/shop-homepage.css" rel="stylesheet" />
+    <link href="~/Content/SiteCustomCss/styleCustom.css" rel="stylesheet" />
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    @*<script src="~/Scripts/jquery-3.4.1.slim.min.js"></script>*@
+    <script src="~/Scripts/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="https://kit.fontawesome.com/8d2a2067a9.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    @{ 
+        User user = null;
+        UserManager usm = new UserManager();
+        if (CurrentCookieTester.CookieIsExist(CookieKeys.signedUserToken))
+        {
+            user = usm.GetUserForCookie(CurrentCookieTester.GetCurrentToken(CookieKeys.signedUserToken)) as User;
+        }
+    }
+
+    <!-- Navigation -->
+    <nav class="mb-3 navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/MyEvernoteHome/Index">Əsas Səhifə</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav">
+                    @if (user != null)
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-users-cog"></i> İdarə Et
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item modifyPanelItem" href="/MyEvernoteHome/LikedOwn/@user.Id"> <i class="fas fa-heart"></i> Beyendiklerim</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item modifyPanelItem" href="/Note/Index">
+                                    <i class="fas fa-clipboard-list"></i> @(user.IsAdmin==true?"Butun Postlar":"Postlarim")
+                                </a>
+                                <a class="dropdown-item modifyPanelItem" href="/Note/Create"> <i class="fas fa-notes-medical"></i> Post Elave Et</a>
+                                @if (user.IsAdmin == true)
+                                {
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item modifyPanelItem" href="/Category/Index"> <i class="fas fa-layer-group"></i> Kateqoriyalar</a>
+                                    <a class="dropdown-item modifyPanelItem" href="/Category/Create"> <i class="fas fa-book-medical"></i> Yeni Kateqoriya</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item modifyPanelItem" href="/User/UserList"> <i class="fas fa-users"></i> Istifadeciler</a>
+                                    <a class="dropdown-item modifyPanelItem" href="/User/CreateUser"> <i class="fas fa-user-plus"></i> Yeni Istifadeci</a>
+                                }
+                            </div>
+                        </li>
+                    }
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/MyEvernoteHome/MostLiked"><i class="fas fa-heart"></i> Ən Bəyənilənlər</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/MyEvernoteHome/LastWritten"><i class="fas fa-clipboard-list"></i> Son Yazılanlar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/MyEvernoteHome/About"><i class="fas fa-award"></i> Haqqımızda</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    @if (user != null)
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="~/Images/UserImages/@user.ImageRoad" class="rounded" style="width: 30px !important; height: 30px !important;" alt="Alternate Text" /> @user.Username
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/User/ShowProfile"> <i class="fas fa-id-card"></i> Hesab</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/User/EditProfile"> <i class="fas fa-cog"></i> Məlumatları Dəyişdir</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" id="selfDelete" href="/User/DeleteProfile"> <i class="fas fa-trash"></i> Hesabı Sil</a>
+                            </div>
+                        </li>
+
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/MyEvernoteHome/Logout"><i class="fas fa-sign-out-alt"></i> Çıxış</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="/MyEvernoteHome/Login"><i class="fas fa-sign-in-alt"></i> Giriş</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/MyEvernoteHome/CreateAccount"><i class="fas fa-user-plus"></i> Hesab Yarat</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            @RenderBody()
+        </div>
+    </div>
+    
+    <!-- /.container -->
+   @RenderSection("footerSection", required: false)
+
+</body>
+
+</html>
+
+<script>
+    $(function () {
+        $("#selfDelete").click(function (e) {
+            let result = confirm("Hesabinizi Silmek Istediyinizden Eminsiniz ?");
+            if (result === false) {
+                e.preventDefault();
+            }
+        });
+    });
+</script>

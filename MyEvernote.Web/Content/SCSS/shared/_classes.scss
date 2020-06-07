@@ -1,0 +1,98 @@
+﻿/// <reference path="_variables.scss" />
+.commentPosts {
+    a {
+        color: $likeCmntOrng;
+        font-weight: bold;
+        border: 1px solid $likeCmntOrng;
+
+        &:hover {
+            color: white;
+            background-color: $likeCmntOrng;
+            transition: 0.3s all ease;
+        }
+    }
+
+    button {
+        color: $likeCmntOrng !important;
+        font-weight: bold;
+        border: 1px solid $likeCmntOrng !important;
+
+        &:hover {
+            color: white !important;
+            background-color: $likeCmntOrng !important;
+            transition: 0.3s all ease;
+        }
+    }
+}
+
+.likePosts {
+    a {
+        color: $likeCmntOrng;
+        font-weight: bold;
+        border: 1px solid $likeCmntOrng;
+
+        &:hover {
+            color: white;
+            background-color: $likeCmntOrng;
+            transition: 0.3s all ease;
+        }
+    }
+
+    button {
+        color: $likeCmntOrng !important;
+        font-weight: bold;
+        border: 1px solid $likeCmntOrng !important;
+
+        &:hover {
+            color: white !important;
+            background-color: $likeCmntOrng !important;
+            transition: 0.3s all ease;
+        }
+
+        &:focus {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+    }
+}
+
+.likedAlready {
+    button {
+        color: $likedCmntDarkPink !important;
+        font-weight: bold;
+        border: 1px solid $likedCmntDarkPink !important;
+
+        &:hover {
+            color: white !important;
+            background-color: $likedCmntDarkPink !important;
+            transition: 0.3s all ease;
+        }
+
+        &:focus {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+    }
+}
+
+.fa-user-shield{
+    color: rgb(0, 255, 75);
+}
+
+.fas-shield-username {
+    color: rgb(0, 129, 38);
+}
+
+.footerMapLinks{
+    &:hover{
+        color: rgb(175, 194, 255) !important;
+        transition: 0.2s all ease !important;
+    }
+}
+
+.modifyPanelItem{
+    &:hover{
+        color: rgb(207, 0, 0) !important;
+        transition: 0.2s all ease !important;
+    }
+}

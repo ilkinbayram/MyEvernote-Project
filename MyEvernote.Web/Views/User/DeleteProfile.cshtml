@@ -1,0 +1,70 @@
+﻿@using MyEvernote.EntitiesLayer
+@using MyEvernote.BussinesLayer.Managers
+@using MyEvernote.Web.Models
+@{
+    ViewBag.Title = "DeleteProfile";
+}
+
+@{ 
+    UserManager usm = new UserManager();
+    User user = null;
+    string ctxValue = CurrentCookieTester.GetCurrentToken(CookieKeys.signedUserToken);
+    if (!string.IsNullOrEmpty(ctxValue))
+    {
+        user = usm.GetUserForCookie(ctxValue);
+    }
+}
+    
+
+    <div class="col-12 mt-4"><h2>Profili Sil</h2></div>
+
+    
+
+<div class="col-12 mt-3 mb-3">
+    <h4>
+        Profilinizi Silmek Istediyinizden Eminsinizse Zehmet Olmasa Sifrenizi Daxil Ederek Tesdiqleyin...
+    </h4>
+    <span>
+        <i class="fas fa-info-circle"></i> Qeyd Edirik ki, Sildiyiniz Hesab Bir Daha Geri Qayitmayacaq!
+    </span>
+</div>
+
+<div class="col-12 mb-4">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken();
+    <input type="number" name="currentId" style="display: none;" value="@(user!=null?user.Id:-1)" />
+    <div class="form-group">
+        <div class="row">
+            <div class="col-2 text-center">
+                <label for="password" class="control-label"><strong>Sifre: </strong></label>
+            </div>
+            <div class="col-8">
+                <input type="password" name="password" class="form-control" id="password" value="" placeholder="Sifrenizi Qeyd Edin..." />
+            </div>
+            <div class="col-2">
+                <button type="submit" class="btn btn-block btn-danger">Sil</button>
+            </div>
+        </div>
+
+    </div>
+    }
+        
+</div>
+@if (ViewBag.Error!=null)
+{
+    <div class="alert alert-danger mt-4 mb-4" id="errorDeleting">
+        <i class="fas fa-info-circle"></i>
+        <span>@ViewBag.Error</span>
+    </div>
+}
+
+<script>
+    $(function () {
+        if ($("#errorDeleting") !== undefined) {
+            setTimeout(function () {
+                $("#errorDeleting").hide(300);
+            }, 3000);
+        }
+    });
+</script>

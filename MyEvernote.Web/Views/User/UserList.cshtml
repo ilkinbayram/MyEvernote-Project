@@ -1,0 +1,108 @@
+﻿@using MyEvernote.EntitiesLayer
+@using MyEvernote.BussinesLayer
+@model List<User>
+@{
+    ViewBag.Title = "UserList";
+}
+<br />
+@{
+    if (ViewBag.ResultError != null)
+    {
+        List<BussinessError> errors = ViewBag.ResultError as List<BussinessError>;
+        foreach (BussinessError error in errors)
+        {
+            <div id="alertMessageHiding" role="alert" class="alert alert-@error.AlertColor">
+                @error.Detail
+            </div>
+        }
+    }
+}
+
+<br />
+<div class="col-12 mt-3 p-4">
+    <a href="/User/CreateUser" class="btn btn-primary">
+        <i class="fas fa-plus"></i> Yeni Istifadeci
+    </a>
+</div>
+<div class="col-12 p-4">
+    <h2>Istifadeciler / Umumi : @Model.Count</h2>
+</div>
+<hr />
+
+<div class="col-12 p-4">
+    <table class="table table-hover table-dark">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Adi - Soyadi</th>
+                <th scope="col">Istifadeci Adi</th>
+                <th scope="col">E-mail</th>
+                <th scope="col">Cinsi</th>
+                <th scope="col">Emeliyyatlar</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                for (int i = 0; i < Model.Count; i++)
+                {
+
+                    <tr>
+                        <th scope="row">@(i+1)</th>
+                        <td>
+                            <img style="width: 50px !important; height: 50px !important;" src="~/Images/UserImages/@Model[i].ImageRoad" alt="Resim Yok" />
+                            &nbsp;
+                            <span>
+                                @(string.IsNullOrEmpty(Model[i].Name)?"Adsiz": Model[i].Name) &nbsp; @(string.IsNullOrEmpty(Model[i].Surname)?"Soyadsiz": Model[i].Surname)
+                            </span>
+                        </td>
+                        <td>@Model[i].Username</td>
+                        <td>@Model[i].Email</td>
+                        <td>@(Model[i].Gender==true?"Kisi":"Qadin")</td>
+                        <td>
+                            <a href="/Note/UserNotes/@Model[i].Id" title="Paylasilan Notlar" class="btn btn-primary btn-sm">
+                                <i class="fas fa-share-alt-square"></i>
+                            </a>
+                            <a href="/User/UserEdit/@Model[i].Id" title="Duzelis Et" class="btn btn-success btn-sm">
+                                <i class="fas fa-user-edit"></i>
+                            </a>
+                            <a href="/User/UserDetails/@Model[i].Id" title="Etrafli" class="btn btn-info btn-sm">
+                                <i class="fas fa-info-circle"></i>
+                            </a>
+                            <a href="/User/UserDelete/@Model[i].Id" title="Sil" class="btn btn-danger btn-sm deleteUser">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<script>
+    $(function () {
+
+        if ($("#alertMessageHiding") !== undefined) {
+            setTimeout(function () {
+                $("#alertMessageHiding").hide(300);
+            }, 3000);
+        }
+
+        $(".deleteUser").click(function (e) {
+            let name = "";
+            if (e.target.className === "fas fa-trash-alt") {
+                name = e.target.parentElement.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.textContent.toString();
+            }
+            else {
+                name = e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.textContent.toString();
+            }
+            let resultConfirm = confirm(name + " adli istifadecini silmek istediyinize eminsiniz ?");
+            if (resultConfirm == false) {
+                e.preventDefault();
+            }
+
+        });
+    });
+</script>

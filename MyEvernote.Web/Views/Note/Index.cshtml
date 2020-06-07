@@ -1,0 +1,123 @@
+﻿@using MyEvernote.EntitiesLayer
+@using MyEvernote.Web.Models
+@using MyEvernote.BussinesLayer
+
+@model List<Note>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@{
+    User currentUser = CurrentCookieTester.GetCurrentUser(CookieKeys.signedUserToken);
+}
+
+@if (ViewBag.ResultMethod!=null)
+{
+    <div id="resultJustMoment" class="col-12">
+        @foreach (BussinessError item in ViewBag.ResultMethod)
+        {
+        <div class="alert alert-@item.AlertColor">
+            @item.Detail
+        </div>
+        <br />
+        }
+    </div>
+}
+    
+<br />
+<div class="col-12 mt-3">
+    <a href="/Note/Create" class="btn btn-primary">
+        <i class="fas fa-plus"></i> Yeni Post
+    </a>
+</div>
+<div class="col-12">
+    <h2>Postlar / Umumi : @Model.Count</h2>
+</div>
+<hr />
+
+<div class="col-12">
+    <table class="table table-hover table-dark">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Postlar</th>
+                <th scope="col">Post Metni</th>
+                <th scope="col">Qaralamadirmi</th>
+                @if (currentUser != null)
+                {
+                    <th scope="col">Emeliyyatlar</th>
+                }
+
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                for (int i = 0; i < Model.Count; i++)
+                {
+
+                    <tr class="@(Model[i].User.Id==currentUser.Id?"bg-secondary":"")">
+                        <th scope="row">@(i+1)</th>
+                        <td>
+                            @(string.IsNullOrEmpty(Model[i].NoteTitle)?"Adsiz": Model[i].NoteTitle)
+                        </td>
+                        <td>@Model[i].Text</td>
+                        <td>@(Model[i].IsDraft==true?"Beli":"Xeyr")</td>
+                        @if (currentUser != null)
+                        {
+                            if (Model[i].User.IsAdmin == true && Model[i].User.Id!=currentUser.Id)
+                            {
+
+                            }
+                            else
+                            {
+                                <td>
+                                    <a href="/MyEvernoteHome/Index" title="Esas Sehife" class="btn btn-primary m-1 btn-sm">
+                                        <i class="fas fa-home"></i>
+                                    </a>
+                                    <a href="/Note/Edit/@Model[i].Id" title="Duzelis Et" class="btn btn-success m-1 btn-sm">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="/Note/Details/@Model[i].Id" title="Etrafli" class="btn btn-info m-1 btn-sm">
+                                        <i class="fas fa-info-circle"></i>
+                                    </a>
+                                    <a href="/Note/Delete/@Model[i].Id" title="Sil" class="btn btn-danger btn-sm ml-2 deleteNote">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                </td>
+                            }
+                        }
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<script>
+    $(function () {
+
+        if ($("#resultJustMoment") !== undefined) {
+            setTimeout(function () {
+                $("#resultJustMoment").hide(300);
+            }, 3000);
+        }
+
+        $(".deleteNote").click(function (e) {
+            let name = "";
+            if (e.target.className === "fas fa-trash-alt") {
+                name = e.target.parentElement.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.textContent.toString();
+            }
+            else {
+                name = e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.textContent.toString();
+            }
+            let resultConfirm = confirm(name + " adli Postu silmek istediyinize eminsiniz ?");
+            if (resultConfirm == false) {
+                e.preventDefault();
+            }
+
+        });
+    });
+</script>

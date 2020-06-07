@@ -1,0 +1,167 @@
+﻿@using MyEvernote.EntitiesLayer
+@using MyEvernote.Web.ViewModels
+@using MyEvernote.Web.Models
+@model ViewModelEach
+
+<style>
+    #modalCommentContent {
+        height: 400px !important;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+</style>
+
+@{
+    User user = null;
+    user = CurrentCookieTester.GetCurrentUser(CookieKeys.signedUserToken);
+}
+
+<div class="col-12">
+    <div class="m-1 border-secondary p-1">
+        <p>
+            @Model.Note.Text
+        </p>
+    </div>
+</div>
+
+<hr />
+<div id="modalCommentContent">
+    @foreach (Comment comment in Model.Comments)
+    {
+        <div class="media mt-2">
+            <img class="align-self-start mt-1 ml-2 mr-3" style="width: 38px !important; height: 38px !important;" src="/Images/UserImages/@comment.User.ImageRoad" alt="Generic placeholder image">
+            <div class="media-body col-10 mt-0">
+                <p class="mt-0 mb-0">
+                    @if (comment.User.IsAdmin == true)
+                    {
+                        <i style="color: rgb(0, 255, 91)" class="fas fa-shield-alt"></i>
+                        <strong style="color: rgb(0, 111, 40)">@comment.User.Username</strong>
+                    }
+                    else
+                    {
+                        <strong>@comment.User.Username</strong>
+                    }
+                </p>
+                <p id="commentText_@comment.Id" contenteditable="false" class="mb-0">
+                    @comment.Text
+                </p>
+                <p style="color: rgb(152, 152, 152);" class="mt-0">
+                    <small> <i class="fas fa-clock"></i> @comment.ModifiedOn.ToString("dd.MM.yyyy HH:mm")</small>
+                </p>
+            </div>
+            @if (user != null)
+            {
+                if (comment.User.Id == user.Id)
+                {
+                    <span class="align-self-start text-right col-2 mt-1">
+                        <button data-method-isedit=true id="edit_@comment.Id" onclick="ClickEdit( @comment.Id, '#commentText_@comment.Id', '#edit_@comment.Id',@Model.Note.Id)" type="button" class="btn btn-warning btn-sm text-white">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button id="delete_@comment.Id" type="button" onclick="ClickDelete(@comment.Id,'@comment.User.Username', @Model.Note.Id)" class="btn btn-danger btn-sm">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </span>
+                }
+                else
+                {
+                    if (comment.User.IsAdmin != true && user.IsAdmin == true)
+                    {
+                        <span class="align-self-start text-right col-2 mt-1">
+                            <button id="delete_@comment.Id" onclick="ClickDelete(@comment.Id,'@comment.User.Username', @Model.Note.Id)" type="button" class="btn btn-danger btn-sm">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </span>
+                    }
+                }
+            }
+
+        </div>
+    }
+</div>
+
+<script>
+    setTimeout(function () {
+        $("#modalCommentContent").scrollTop($("#modalCommentContent")[0].scrollHeight);
+    }, 100);
+
+    function ClickEdit(changeCommentId, commentTextId, btnId, reloadEditNoteID) {
+        let targetBtn = $(btnId);
+        let commentPart = $(commentTextId);
+        let iconSpan = targetBtn.find('i');
+
+
+        if ($(btnId).data('method-isedit') === true) {
+            targetBtn.removeClass("btn-warning");
+            targetBtn.addClass("btn-success");
+            $(btnId).data('method-isedit', false);
+            iconSpan.removeClass("fa-edit");
+            iconSpan.addClass("fa-save");
+            commentPart.attr('contenteditable', true);
+            commentPart.addClass("editable-text");
+            commentPart.focus();
+        }
+        else {
+            targetBtn.removeClass("btn-success");
+            targetBtn.addClass("btn-warning");
+            $(btnId).data('method-isedit', true);
+            iconSpan.removeClass("fa-save");
+            iconSpan.addClass("fa-edit");
+            commentPart.attr('contenteditable', false);
+            commentPart.removeClass("editable-text");
+
+            let txt = $(commentTextId).text();
+
+            $.ajax({
+                method: "POST",
+                url: "/Comment/Edit/" + changeCommentId,
+                data: { Text: txt }
+            }).done(function (data) {
+                switch (data.result) {
+                    case 1:
+                        $("#commentsModal_body").load("/Comment/ShowNoteComments/" + reloadEditNoteID);
+                        break;
+                    case 0:
+                        alert(data.message);
+                        break;
+                    case -1:
+                        alert(data.message);
+                        break;
+                    default:
+                }
+            }).fail(function (data) {
+                alert("Server Ile Baglanti Kesildi...");
+            });
+        }
+    }
+
+    function ClickDelete(deleteCommentId, deletedCommentUsername, reloadDeleteNoteID) {
+
+
+
+        let confirmResult = confirm(deletedCommentUsername + " " + "Isimli Istifadecinin Commentini Silmek Istediyinizden Eminmisiniz ?");
+
+        if (confirmResult==false) return false;
+
+        $.ajax({
+            method: "POST",
+            url: "/Comment/Delete/" + deleteCommentId
+        }).done(function (data) {
+
+            switch (data.result) {
+                case 1:
+                    $("#commentsModal_body").load("/Comment/ShowNoteComments/" + reloadDeleteNoteID);
+                    break;
+                case 0:
+                    alert(data.message);
+                    break;
+                default:
+            };
+
+        }).fail(function (data) {
+            alert("Server Ile Baglanti Kesilmisdir...");
+        });
+    }
+
+</script>
+
+
