@@ -91,10 +91,11 @@ namespace MyEvernote.BussinesLayer.Managers
             }
             return base.Delete(user);
         }
-        public BussinessResult<User> RegisterUserCheck(UserRegister newUser)
+        public BussinessResult<User> RegisterUserCheck(UserRegister newUser, bool IsRegisterQuickly = false)
         {
             BussinessResult<User> layerResult = new BussinessResult<User>();
             User user = repo_user.Get(x => x.Username == newUser.Username || x.Email == newUser.Email);
+            DefaultImageHelper defaultImage = new DefaultImageHelper();
 
             if (user != null && user.IsDeleted == false)
             {
@@ -126,11 +127,11 @@ namespace MyEvernote.BussinesLayer.Managers
                 };
                 if (newUser.Gender)
                 {
-                    successUser.ImageRoad = "boy_profilePhoto.png";
+                    successUser.ImageRoad = defaultImage.UserBoyProfilePhoto;
                 }
                 else
                 {
-                    successUser.ImageRoad = "girl_profilePhoto.png";
+                    successUser.ImageRoad = defaultImage.UserGirlProfilePhoto;
                 }
 
                 #region WebMailSendVersion
@@ -148,7 +149,7 @@ namespace MyEvernote.BussinesLayer.Managers
                 //    );
                 #endregion
 
-                string htmlBody = HtmlMailDesign.TemplateActivation1(successUser.ConfirmCode.ToString(), "MyEvernoteHome", "ActivationConfirming", true, "localhost:44363", false, false, "confirm", Username: successUser.Username);
+                string htmlBody = HtmlMailDesign.TemplateActivation1(successUser.ConfirmCode.ToString(), "MyEvernoteHome", "ActivationConfirming", true, "localhost:44363", false, false, "confirm", Username: successUser.Username, IsQuicklyRegister: IsRegisterQuickly, quicklyPassowrd: newUser.Password);
                 bool isMailSent = MailHelper.SendMail(htmlBody, successUser.Email, MailHelper.MailSubjectStatus(SubjectStatus.AccountConfirmationMail));
 
                 if (isMailSent == true)
@@ -311,8 +312,9 @@ namespace MyEvernote.BussinesLayer.Managers
         {
             BussinessResult<User> layerResult = new BussinessResult<User>();
             User user = repo_user.Get(x => x.Username == newUser.Username || x.Email == newUser.Email);
+            DefaultImageHelper defaultImage = new DefaultImageHelper();
 
-            if (user != null && user.IsDeleted == false)
+            if (user != null && !user.IsDeleted)
             {
                 if (user.Username == newUser.Username)
                     layerResult.Errors.Add(new BussinessError
@@ -347,11 +349,11 @@ namespace MyEvernote.BussinesLayer.Managers
                 };
                 if (newUser.Gender)
                 {
-                    successUser.ImageRoad = "boy_profilePhoto.png";
+                    successUser.ImageRoad = defaultImage.UserBoyProfilePhoto;
                 }
                 else
                 {
-                    successUser.ImageRoad = "girl_profilePhoto.png";
+                    successUser.ImageRoad = defaultImage.UserGirlProfilePhoto;
                 }
 
                 if (base.Insert(successUser) == 0)
@@ -462,6 +464,63 @@ namespace MyEvernote.BussinesLayer.Managers
             }
 
             return result;
+        }
+
+        public BussinessJsonResult QuicklyRegister(string email)
+        {
+            var result = new BussinessJsonResult();
+            Random random = new Random();
+
+            string password = Guid.NewGuid().ToString().Substring(0, 3) + random.Next(100000, 999999).ToString();
+
+            if (CheckQuicklyMailIsAcceptable(email))
+            {
+                UserRegister user = new UserRegister
+                {
+                    Email = email,
+                    Gender = true,
+                    Username = "User_"+DateTime.Now.Second.ToString()+DateTime.Now.Minute.ToString()+DateTime.Now.Hour.ToString()+DateTime.Now.Day.ToString()+DateTime.Now.Month.ToString()+DateTime.Now.Year.ToString(),
+                    Password = password,
+                    RePassword = password
+                };
+
+                BussinessResult<User> bussinessResult = RegisterUserCheck(user, true);
+
+                if (bussinessResult.Errors.Count>0)
+                {
+                    result.Status = 0;
+
+                    foreach (var error in bussinessResult.Errors)
+                    {
+                        result.Message += error.Detail + ".";
+                    }
+                }
+                else
+                {
+                    result.Status = 1;
+
+                    result.Message = $"Qeyd Etdiyiniz; {email} elektron poct unvanina tesdiqleme linki gonderildi. Hesabinizi elektron poctunuza daxil olub tesdiqledikden sonra aktiv sekilde istifade ede bilersiniz";
+                }
+            }
+            else
+            {
+                result.Status = 0;
+                result.Message = "Bu Email Daha Once Istifade Edilmisdir Zehmet olmasa Qeyd Edilmeyen Bir Email Istifade Edesini.";
+            }
+
+            return result;
+        }
+
+        private bool CheckQuicklyMailIsAcceptable (string email)
+        {
+            User user = Get(x => x.Email == email & x.IsDeleted==false);
+
+            if (user != null)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

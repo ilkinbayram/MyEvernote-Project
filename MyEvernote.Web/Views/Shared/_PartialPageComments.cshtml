@@ -1,4 +1,5 @@
 ﻿@using MyEvernote.EntitiesLayer
+@using MyEvernote.BussinesLayer.Tools
 @using MyEvernote.Web.ViewModels
 @using MyEvernote.Web.Models
 @model ViewModelEach
@@ -14,6 +15,8 @@
 @{
     User user = null;
     user = CurrentCookieTester.GetCurrentUser(CookieKeys.signedUserToken);
+
+    DefaultDirectoryHelper directoryHelper = new DefaultDirectoryHelper();
 }
 
 <div class="col-12">
@@ -29,7 +32,7 @@
     @foreach (Comment comment in Model.Comments)
     {
         <div class="media mt-2">
-            <img class="align-self-start mt-1 ml-2 mr-3" style="width: 38px !important; height: 38px !important;" src="/Images/UserImages/@comment.User.ImageRoad" alt="Generic placeholder image">
+            <img class="align-self-start mt-1 ml-2 mr-3" style="width: 38px !important; height: 38px !important;" src="@(directoryHelper.UserImagesDir + comment.User.ImageRoad)" alt="Generic placeholder image">
             <div class="media-body col-10 mt-0">
                 <p class="mt-0 mb-0">
                     @if (comment.User.IsAdmin == true)
@@ -82,7 +85,7 @@
 <script>
     setTimeout(function () {
         $("#modalCommentContent").scrollTop($("#modalCommentContent")[0].scrollHeight);
-    }, 100);
+    }, 1);
 
     function ClickEdit(changeCommentId, commentTextId, btnId, reloadEditNoteID) {
         let targetBtn = $(btnId);
@@ -140,7 +143,7 @@
 
         let confirmResult = confirm(deletedCommentUsername + " " + "Isimli Istifadecinin Commentini Silmek Istediyinizden Eminmisiniz ?");
 
-        if (confirmResult==false) return false;
+        if (confirmResult == false) return false;
 
         $.ajax({
             method: "POST",

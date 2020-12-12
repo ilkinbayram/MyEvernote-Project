@@ -5,11 +5,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using MyEvernote.Web.Models;
+using MyEvernote.BussinesLayer.Tools;
 
 namespace MyEvernote.Web.Init
 {
     public class MyWebApp : ICommon
     {
+
+        public MyWebApp()
+        {
+            DefaultImageHelper defaultImageHelper = new DefaultImageHelper();
+            DefaultDirectoryHelper defaultDirectory = new DefaultDirectoryHelper();
+        }
+
         public string GetCurrentUsername()
         {
             string resultMain;

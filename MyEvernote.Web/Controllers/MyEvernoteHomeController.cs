@@ -21,6 +21,9 @@ namespace MyEvernote.Web.Controllers
     {
         NoteManager nm = new NoteManager();
         UserManager um = new UserManager();
+        DefaultImageHelper ImageHelper = new DefaultImageHelper();
+        DefaultDirectoryHelper DefaultDirectoryHelper = new DefaultDirectoryHelper();
+        ViewModelEach ViewModel = new ViewModelEach();
 
         #region PageMostLikedAndOthers
         // Page Actions -- Start
@@ -28,20 +31,28 @@ namespace MyEvernote.Web.Controllers
         {
             Test test = new Test();
 
+            ViewModel.ImageHelper = ImageHelper;
+            ViewModel.DirectoryHelper = DefaultDirectoryHelper;
+
             if (nm.List() != null)
             {
-                return View(nm.List(x => x.IsDeleted == false && x.IsDraft==false && x.User.IsBanned==false && x.User.IsConfirmed==true && x.User.IsDeleted==false).OrderByDescending(x => x.CreatedOn).ToList());
+                ViewModel.Notes = nm.List(x => x.IsDeleted == false && x.IsDraft == false && x.User.IsBanned == false && x.User.IsConfirmed == true && x.User.IsDeleted == false).OrderByDescending(x => x.CreatedOn).ToList();
+
+                return View(ViewModel);
                 //return View(nm.GetNotesByQuery().OrderByDescending(x=>x.ModifiedOn).ToList());
             }
 
             CurrentCookieTester.SetCookie(CookieKeys.updateableUrl, "MyEvernoteHome/Index");
 
-            return View();
+            return View(ViewModel);
         }
 
         [AuthIsLoggedOut]
         public ActionResult LikedOwn(int? id)
         {
+            ViewModel.DirectoryHelper = DefaultDirectoryHelper;
+            ViewModel.ImageHelper = ImageHelper;
+
             User user = null;
             if (id != null)
                 user = um.Get(x => x.Id == id.Value);
@@ -55,8 +66,9 @@ namespace MyEvernote.Web.Controllers
                 }
             }
 
+            ViewModel.Notes = noteListLiked;
 
-            return View("Index", noteListLiked.Where(x=>x.IsDraft==false && x.IsDeleted==false && x.User.IsBanned == false && x.User.IsConfirmed == true && x.User.IsDeleted == false).OrderByDescending(x => x.CreatedOn).ToList());
+            return View("Index", ViewModel);
         }
 
         public ActionResult ByCategory(int? id)
@@ -71,21 +83,36 @@ namespace MyEvernote.Web.Controllers
 
             //return View("Index", cat.Notes.Where(x => x.IsDeleted == false && x.IsDraft==false).OrderByDescending(x => x.ModifiedOn).ToList());
 
+            ViewModel.DirectoryHelper = DefaultDirectoryHelper;
+            ViewModel.ImageHelper = ImageHelper;
+
             List<Note> notes = nm.List()
                 .Where(x => x.IsDeleted == false && x.IsDraft == false && x.Category.Id==id.Value && x.User.IsBanned == false && x.User.IsConfirmed == true && x.User.IsDeleted == false)
                 .OrderByDescending(x => x.CreatedOn).ToList();
 
-            return View("Index", notes);
+            ViewModel.Notes = notes;
+
+            return View("Index", ViewModel);
         }
         public ActionResult MostLiked()
         {
+            ViewModel.DirectoryHelper = DefaultDirectoryHelper;
+            ViewModel.ImageHelper = ImageHelper;
+
             List<Note> nts = nm.List(x => x.IsDeleted == false && x.IsDraft == false && x.User.IsBanned == false && x.User.IsConfirmed == true && x.User.IsDeleted == false);
 
-            return View("Index", nts.OrderByDescending(x => x.LikeCount).ToList());
+            ViewModel.Notes = nts.OrderByDescending(x => x.LikeCount).ToList();
+
+            return View("Index", ViewModel);
         }
         public ActionResult LastWritten()
         {
-            return View("Index", nm.List(x => x.IsDeleted == false && x.IsDraft == false && x.User.IsBanned == false && x.User.IsConfirmed == true && x.User.IsDeleted == false).OrderByDescending(x => x.CreatedOn).ToList());
+            ViewModel.DirectoryHelper = DefaultDirectoryHelper;
+            ViewModel.ImageHelper = ImageHelper;
+
+            ViewModel.Notes = nm.List(x => x.IsDeleted == false && x.IsDraft == false && x.User.IsBanned == false && x.User.IsConfirmed == true && x.User.IsDeleted == false).OrderByDescending(x => x.CreatedOn).ToList();
+
+            return View("Index", ViewModel);
         }
         // Page Actions -- End
         #endregion
@@ -425,5 +452,26 @@ namespace MyEvernote.Web.Controllers
         }
 
         #endregion
+
+        [HttpPost]
+        public ActionResult QuicklyRegistrate(string email)
+        {
+            BussinessJsonResult jsonResult;
+
+            if (GeneralUtilities.EmailIsValid(email))
+            {
+                jsonResult = um.QuicklyRegister(email);
+            }
+            else
+            {
+                jsonResult = new BussinessJsonResult
+                {
+                    Status = 0,
+                    Message = "Your Email Is Not Valid Email! Please Write Correct Email!"
+                };
+            }
+
+            return Json(new { status = jsonResult.Status, message = jsonResult.Message}, JsonRequestBehavior.AllowGet);
+        }
     }
 }

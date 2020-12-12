@@ -1,6 +1,7 @@
-﻿@using MyEvernote.EntitiesLayer
+﻿@using MyEvernote.EntitiesLayer;
 @using MyEvernote.Web.Models;
-@model List<Note>
+@using MyEvernote.Web.ViewModels;
+@model ViewModelEach
 
 @{
     ViewBag.Title = "index";
@@ -35,22 +36,28 @@
         </ol>
         <div class="carousel-inner" role="listbox">
             <div class="carousel-item active">
-                <img class="d-block img-fluid" style="width: 100% !important; height: 350px !important;" src="/PageStaticImages/slideImageIndex1.jpg" alt="First slide">
+                <img class="d-block img-fluid" style="width: 100% !important; height: 350px !important;" 
+                     src="@Model.DirectoryHelper.ImagesProjectGeneralDir@Model.ImageHelper.sl1" alt="First slide">
             </div>
             <div class="carousel-item">
-                <img class="d-block img-fluid" style="width: 100% !important; height: 350px !important;" src="/PageStaticImages/slideImageIndex2.jpg" alt="Second slide">
+                <img class="d-block img-fluid" style="width: 100% !important; height: 350px !important;" 
+                     src="@Model.DirectoryHelper.ImagesProjectGeneralDir@Model.ImageHelper.sl2" alt="Second slide">
             </div>
             <div class="carousel-item">
-                <img class="d-block img-fluid" style="width: 100% !important; height: 350px !important;" src="/PageStaticImages/slideImageIndex3.jpg" alt="Third slide">
+                <img class="d-block img-fluid" style="width: 100% !important; height: 350px !important;" 
+                     src="@Model.DirectoryHelper.ImagesProjectGeneralDir@Model.ImageHelper.sl3" alt="Third slide">
             </div>
             <div class="carousel-item">
-                <img class="d-block img-fluid" style="width: 100% !important; height: 350px !important;" src="/PageStaticImages/slideImageIndex4.jpg" alt="Third slide">
+                <img class="d-block img-fluid" style="width: 100% !important; height: 350px !important;" 
+                     src="@Model.DirectoryHelper.ImagesProjectGeneralDir@Model.ImageHelper.sl4" alt="Third slide">
             </div>
             <div class="carousel-item">
-                <img class="d-block img-fluid" style="width: 100% !important; height: 350px !important;" src="/PageStaticImages/slideImageIndex5.jpg" alt="Third slide">
+                <img class="d-block img-fluid" style="width: 100% !important; height: 350px !important;" 
+                     src="@Model.DirectoryHelper.ImagesProjectGeneralDir@Model.ImageHelper.sl5" alt="Third slide">
             </div>
             <div class="carousel-item">
-                <img class="d-block img-fluid" style="width: 100% !important; height: 350px !important;" src="/PageStaticImages/slideImageIndex6.jpg" alt="Third slide">
+                <img class="d-block img-fluid" style="width: 100% !important; height: 350px !important;" 
+                     src="@Model.DirectoryHelper.ImagesProjectGeneralDir@Model.ImageHelper.sl6" alt="Third slide">
             </div>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -67,11 +74,12 @@
 
         @if (Model != null)
         {
-            foreach (Note note in Model)
+            foreach (Note note in Model.Notes)
             {
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card h-100" data-card-posted="@note.Id">
-                        <img class="card-img-top" style="width: 100% !important; height: 200px !important;" src="@(string.IsNullOrEmpty(note.ImageCap)?"/Images/NoteImages/DefaultNoteProfilePhoto.jpg":"/Images/NoteImages/"+note.ImageCap)" alt="@note.NoteTitle">
+                        <img class="card-img-top" style="width: 100% !important; height: 200px !important;" 
+                             src="@(string.IsNullOrEmpty(note.ImageCap)?Model.DirectoryHelper.NoteImagesDir+Model.ImageHelper.PostCaptionPhoto:Model.DirectoryHelper.NoteImagesDir+note.ImageCap)" alt="@note.NoteTitle">
                         <div class="card-body">
                             <div class="text-right">
 

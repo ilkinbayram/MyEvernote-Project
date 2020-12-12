@@ -78,6 +78,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BussinessJsonResult.cs" />
     <Compile Include="BussinessProcessedType.cs" />
     <Compile Include="BussinessError.cs" />
     <Compile Include="Managers\CategoryManager.cs" />
@@ -85,6 +86,9 @@
     <Compile Include="Managers\LikeManager.cs" />
     <Compile Include="Managers\ManagerBase.cs" />
     <Compile Include="Test.cs" />
+    <Compile Include="Tools\DefaultDirectoryHelper.cs" />
+    <Compile Include="Tools\DefaultImageHelper.cs" />
+    <Compile Include="Tools\GeneralUtilities.cs" />
     <Compile Include="Tools\InformingOrError.cs" />
     <Compile Include="HtmlMailDesign.cs" />
     <Compile Include="Managers\NoteManager.cs" />

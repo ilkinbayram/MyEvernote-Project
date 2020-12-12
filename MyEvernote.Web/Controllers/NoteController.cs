@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using MyEvernote.BussinesLayer;
 using MyEvernote.BussinesLayer.Managers;
+using MyEvernote.BussinesLayer.Tools;
 using MyEvernote.EntitiesLayer;
 using MyEvernote.Web.Filters;
 using MyEvernote.Web.Models;
@@ -24,6 +25,7 @@ namespace MyEvernote.Web.Controllers
         private CategoryManager _categoryManager = new CategoryManager();
         private LikeManager _likeManager = new LikeManager();
         private CommentManager _commentManager = new CommentManager();
+        private DefaultDirectoryHelper directoryHelper = new DefaultDirectoryHelper();
 
         // GET: Note
         public ActionResult Index()
@@ -95,11 +97,11 @@ namespace MyEvernote.Web.Controllers
                     notePhoto.ContentType.Split('/')[1] == "jpeg" ||
                     notePhoto.ContentType.Split('/')[1] == "png")
                     {
-                        string ownPath = Server.MapPath("/Images/NoteImages");
+                        string ownPath = Server.MapPath(directoryHelper.NoteImagesDir);
                         string fileName = $"noteProfilePhoto_{DateTime.Now.Day}_{DateTime.Now.Month}_{DateTime.Now.Year}_{DateTime.Now.Hour}_{DateTime.Now.Minute}_{DateTime.Now.Second}.{notePhoto.ContentType.Split('/')[1]}";
                         if (!Directory.Exists(ownPath))
                             Directory.CreateDirectory(ownPath);
-                        notePhoto.SaveAs(ownPath+"/"+fileName);
+                        notePhoto.SaveAs(ownPath+fileName);
                         note.ImageCap = fileName;
                     }
                     else
@@ -167,11 +169,11 @@ namespace MyEvernote.Web.Controllers
                     notePhoto.ContentType.Split('/')[1] == "jpeg" ||
                     notePhoto.ContentType.Split('/')[1] == "png")
                     {
-                        string ownPath = Server.MapPath("/Images/NoteImages");
+                        string ownPath = Server.MapPath(directoryHelper.NoteImagesDir);
                         string fileName = $"noteProfilePhoto_{DateTime.Now.Day}_{DateTime.Now.Month}_{DateTime.Now.Year}_{DateTime.Now.Hour}_{DateTime.Now.Minute}_{DateTime.Now.Second}.{notePhoto.ContentType.Split('/')[1]}";
                         if (!Directory.Exists(ownPath))
                             Directory.CreateDirectory(ownPath);
-                        notePhoto.SaveAs(ownPath+"/"+fileName);
+                        notePhoto.SaveAs(ownPath+fileName);
                         currentNote.ImageCap = fileName;
                     }
                     else

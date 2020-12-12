@@ -1,6 +1,7 @@
 ﻿@using MyEvernote.EntitiesLayer
 @using MyEvernote.BussinesLayer
-@model List<User>
+@using MyEvernote.Web.ViewModels
+@model ViewModelEach
 @{
     ViewBag.Title = "UserList";
 }
@@ -25,7 +26,7 @@
     </a>
 </div>
 <div class="col-12 p-4">
-    <h2>Istifadeciler / Umumi : @Model.Count</h2>
+    <h2>Istifadeciler / Umumi : @Model.Users.Count</h2>
 </div>
 <hr />
 
@@ -44,32 +45,32 @@
         <tbody>
             @if (Model != null)
             {
-                for (int i = 0; i < Model.Count; i++)
+                for (int i = 0; i < Model.Users.Count; i++)
                 {
 
                     <tr>
                         <th scope="row">@(i+1)</th>
                         <td>
-                            <img style="width: 50px !important; height: 50px !important;" src="~/Images/UserImages/@Model[i].ImageRoad" alt="Resim Yok" />
+                            <img style="width: 50px !important; height: 50px !important;" src="@(Model.DirectoryHelper.UserImagesDir + Model.Users[i].ImageRoad)" alt="Resim Yok" />
                             &nbsp;
                             <span>
-                                @(string.IsNullOrEmpty(Model[i].Name)?"Adsiz": Model[i].Name) &nbsp; @(string.IsNullOrEmpty(Model[i].Surname)?"Soyadsiz": Model[i].Surname)
+                                @(string.IsNullOrEmpty(Model.Users[i].Name)?"Adsiz": Model.Users[i].Name) &nbsp; @(string.IsNullOrEmpty(Model.Users[i].Surname)?"Soyadsiz": Model.Users[i].Surname)
                             </span>
                         </td>
-                        <td>@Model[i].Username</td>
-                        <td>@Model[i].Email</td>
-                        <td>@(Model[i].Gender==true?"Kisi":"Qadin")</td>
+                        <td>@Model.Users[i].Username</td>
+                        <td>@Model.Users[i].Email</td>
+                        <td>@(Model.Users[i].Gender==true?"Kisi":"Qadin")</td>
                         <td>
-                            <a href="/Note/UserNotes/@Model[i].Id" title="Paylasilan Notlar" class="btn btn-primary btn-sm">
+                            <a href="/Note/UserNotes/@Model.Users[i].Id" title="Paylasilan Notlar" class="btn btn-primary btn-sm">
                                 <i class="fas fa-share-alt-square"></i>
                             </a>
-                            <a href="/User/UserEdit/@Model[i].Id" title="Duzelis Et" class="btn btn-success btn-sm">
+                            <a href="/User/UserEdit/@Model.Users[i].Id" title="Duzelis Et" class="btn btn-success btn-sm">
                                 <i class="fas fa-user-edit"></i>
                             </a>
-                            <a href="/User/UserDetails/@Model[i].Id" title="Etrafli" class="btn btn-info btn-sm">
+                            <a href="/User/UserDetails/@Model.Users[i].Id" title="Etrafli" class="btn btn-info btn-sm">
                                 <i class="fas fa-info-circle"></i>
                             </a>
-                            <a href="/User/UserDelete/@Model[i].Id" title="Sil" class="btn btn-danger btn-sm deleteUser">
+                            <a href="/User/UserDelete/@Model.Users[i].Id" title="Sil" class="btn btn-danger btn-sm deleteUser">
                                 <i class="fas fa-trash-alt"></i>
                             </a>
                         </td>

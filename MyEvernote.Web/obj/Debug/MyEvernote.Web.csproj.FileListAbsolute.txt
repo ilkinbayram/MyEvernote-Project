@@ -89,3 +89,7 @@ C:\Users\Developer\source\repos\MyEvernote\MyEvernote.Web\bin\CommonLayer.dll
 C:\Users\Developer\source\repos\MyEvernote\MyEvernote.Web\bin\CommonLayer.pdb
 C:\Users\Developer\source\repos\MyEvernote\MyEvernote.Web\bin\MyEvernoteCore.dll
 C:\Users\Developer\source\repos\MyEvernote\MyEvernote.Web\bin\MyEvernoteCore.pdb
+C:\Users\Developer\source\repos\MyEvernote\MyEvernote.Web\bin\Newtonsoft.Json.dll
+C:\Users\Developer\source\repos\MyEvernote\MyEvernote.Web\bin\System.Diagnostics.DiagnosticSource.dll
+C:\Users\Developer\source\repos\MyEvernote\MyEvernote.Web\bin\Newtonsoft.Json.xml
+C:\Users\Developer\source\repos\MyEvernote\MyEvernote.Web\bin\System.Diagnostics.DiagnosticSource.xml

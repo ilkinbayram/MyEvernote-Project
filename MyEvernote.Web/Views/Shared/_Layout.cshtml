@@ -1,6 +1,7 @@
 ﻿@using MyEvernote.EntitiesLayer;
 @using MyEvernote.BussinesLayer.Managers;
-@using MyEvernote.Web.Models
+@using MyEvernote.Web.Models;
+@using MyEvernote.BussinesLayer.Tools;
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,6 +38,8 @@
         {
             user = usm.GetUserForCookie(CurrentCookieTester.GetCurrentToken(CookieKeys.signedUserToken)) as User;
         }
+
+        DefaultDirectoryHelper DirectoryHelper = new DefaultDirectoryHelper();
     }
 
     <!-- Navigation -->
@@ -89,7 +92,7 @@
                     {
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="~/Images/UserImages/@user.ImageRoad" class="rounded" style="width: 30px !important; height: 30px !important;" alt="Alternate Text" /> @user.Username
+                                <img src="@(DirectoryHelper.UserImagesDir + user.ImageRoad)" class="rounded" style="width: 30px !important; height: 30px !important;" alt="Alternate Text" /> @user.Username
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="/User/ShowProfile"> <i class="fas fa-id-card"></i> Hesab</a>

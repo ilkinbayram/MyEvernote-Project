@@ -27,14 +27,14 @@ namespace MyEvernote.DataAccessLayer.EntityFramework
                 IsBanned = false,
                 Token = Guid.NewGuid(),
                 Gender = true,
-                ImageRoad = "admin_boy_profilePhoto.png",
+                ImageRoad = "admin_profile_default_photo_last.png",
                 ConfirmCode = Guid.NewGuid(),
                 CreatedOn = DateTime.Now.AddDays(-13),
                 ModifiedOn = DateTime.Now.AddDays(-7),
                 ModifiedUsername = "ilkinbayram"
             };
             context.Users.Add(admin);
-
+            
             // Fake Users creating
             for (int f = 0; f < 12; f++)
             {

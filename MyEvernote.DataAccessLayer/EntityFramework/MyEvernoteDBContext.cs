@@ -10,6 +10,7 @@ namespace MyEvernote.DataAccessLayer.EntityFramework
 {
     public class MyEvernoteDBContext : DbContext
     {
+
         public DbSet<User> Users { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Note> Notes { get; set; }

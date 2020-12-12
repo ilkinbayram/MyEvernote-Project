@@ -30,16 +30,68 @@
                             Semper mi, id sollicitudin urna fermentum ut fusce varius nisl ac ipsum gravida vel.
                         </small>
                         <div class="input-group mb-3 mt-2">
-                            <input type="text" class="form-control" placeholder="example@email.com" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                            <input type="text" class="form-control" id="quickRegisterEmail" placeholder="example@email.com" aria-label="Recipient's username" aria-describedby="basic-addon2">
                             <div class="input-group-append">
-                                <button class="btn btn-primary" type="button"><i class="fas fa-paper-plane"></i> Göndər</button>
+                                <button class="btn btn-primary" id="registerQuick" type="button"><i class="fas fa-paper-plane"></i> Göndər</button>
                             </div>
                         </div>
                     </div>
                 </form>
+                <div id="alertQuickly">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <div id="alertText">
+                                    Registered! Please Check Your Email, and confirm!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+
+    <script>
+        $(function () {
+            $("#alertQuickly").hide();
+        });
+
+        $("#registerQuick").click(function (e) {
+            let email = $("#quickRegisterEmail").val();
+
+            $.ajax({
+                url: "/MyEvernoteHome/QuicklyRegistrate?email=" + email,
+                method: "POST"
+            }).done(function (data) {
+                alertQuickly(data);
+            }).fail(function () {
+                alert("Something Went Wrong!");
+            })
+        });
+
+        function alertQuickly(data) {
+
+            let alertTextItem = document.querySelector("#alertText");
+
+            alertTextItem.textContent = data.message;
+
+            if (data.status == 0) {
+                $("#alertText").attr("class", "alert alert-danger");
+            } else {
+                $("#alertText").attr("class", "alert alert-info");
+            }
+
+            $("#alertQuickly").show(500);
+
+            setTimeout(function () {
+                $("#alertQuickly").hide(500, function () {
+                    $("#alertText").removeAttr("class");
+                });
+            }, 6500);
+        }
+        
+    </script>
 
     <!-- /.container -->
 </footer>

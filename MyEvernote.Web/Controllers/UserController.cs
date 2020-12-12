@@ -13,6 +13,8 @@ using MyEvernote.BussinesLayer;
 using MyEvernote.EntitiesLayer;
 using MyEvernote.Web.Models;
 using MyEvernote.Web.Filters;
+using MyEvernote.BussinesLayer.Tools;
+using MyEvernote.Web.ViewModels;
 
 namespace MyEvernote.Web.Controllers
 {
@@ -21,6 +23,9 @@ namespace MyEvernote.Web.Controllers
     public class UserController : Controller
     {
         private UserManager userManager = new UserManager();
+        DefaultImageHelper ImageHelper = new DefaultImageHelper();
+        DefaultDirectoryHelper DefaultDirectoryHelper = new DefaultDirectoryHelper();
+        ViewModelEach ViewModel = new ViewModelEach();
 
         public ActionResult ShowProfile()
         {
@@ -64,13 +69,13 @@ namespace MyEvernote.Web.Controllers
                                     profileImage.ContentType.Split('/')[1] == "jpg" ||
                                     profileImage.ContentType.Split('/')[1] == "pgn"))
                     {
-                        string ownPath = "/Images/UserImages";
+                        string ownPath = DefaultDirectoryHelper.UserImagesDir;
                         string fileName = $"user_profileImage_{CurrentUser.Token}_{DateTime.Now.Day}_{DateTime.Now.Month}_{DateTime.Now.Year}_{DateTime.Now.Minute}_{DateTime.Now.Second}.{profileImage.ContentType.Split('/')[1]}";
                         if (!Directory.Exists(ownPath))
                         {
                             Directory.CreateDirectory(ownPath);
                         }
-                        profileImage.SaveAs(Server.MapPath(ownPath + "/" + fileName));
+                        profileImage.SaveAs(Server.MapPath(ownPath + fileName));
                         CurrentUser.ImageRoad = fileName;
                     }
                     else
@@ -171,6 +176,9 @@ namespace MyEvernote.Web.Controllers
         [AuthCheckAdmin]
         public ActionResult UserList()
         {
+            ViewModel.DirectoryHelper = DefaultDirectoryHelper;
+            ViewModel.ImageHelper = ImageHelper;
+
             if (TempData["newUserAdd"] != null)
                 ViewBag.ResultError = TempData["newUserAdd"];
             if(TempData["userEdit"] != null)
@@ -182,7 +190,9 @@ namespace MyEvernote.Web.Controllers
             
             CurrentCookieTester.SetCookie(CookieKeys.updateableUrl, "User/UserList");
 
-            return View(_userList);
+            ViewModel.Users = _userList;
+
+            return View(ViewModel);
         }
         [AuthCheckAdmin]
         public ActionResult CreateUser()
